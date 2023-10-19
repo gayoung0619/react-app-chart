@@ -11,7 +11,9 @@ const ChartBar = (props) => {
 				<div className="chart-bar__fill" style={{height : barFillHeight}}></div>
 			</div>
 			<div className="chart-bar__label">{props.label}</div>
+			{props.totalAmount === 0? null : <div className="chart-bar__totalAmount">{`$${props.totalAmount}`}</div>}
 		</div>
+
 	)
 }
 export default ChartBar;
