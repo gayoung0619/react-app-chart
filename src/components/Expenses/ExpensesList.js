@@ -4,7 +4,10 @@ import ExpenseItem from "./ExpenseItem";
 const ExpensesList = (props) => {
 	return (
 		<ul className="expenses-list">
-			{props.items.map((expense) => (
+			{props.items.length <= 0?
+				<p className="expense-item__nodata">NO DATA</p>
+				:
+				props.items.map((expense) => (
 				<ExpenseItem
 					key={expense.id}
 					id={expense.id}

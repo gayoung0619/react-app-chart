@@ -7,12 +7,11 @@ import ExpenseChart from "./ExpenseChart";
 import MyContext from "../../context/MyContext";
 
 const Expenses = (props) => {
-	const [year, setYear] = useState('2021');
 	const filterChangeHandler = (selectYear) => {
-		setYear(selectYear)
+		props.setYear(selectYear)
 	}
 	let filtered = props.items.filter((expenses)=>{
-		return expenses.date.getFullYear().toString() === year
+		return expenses.date.getFullYear().toString() === props.year
 	})
 	const deleteItem = (targetId) => {
 		filtered = filtered.filter((expenses) => expenses.id !== targetId);
@@ -21,12 +20,9 @@ const Expenses = (props) => {
 	}
 	return (
 		<Card className="expenses">
-			<ExpenseFilter selected={year} onfilterChange={filterChangeHandler} />
+			<ExpenseFilter selected={props.year} onfilterChange={filterChangeHandler} />
 			<ExpenseChart expenses={filtered} />
-			<ExpensesList
-				items={filtered}
-				handleDelete={deleteItem}
-			/>
+			<ExpensesList setIsEditing={props.setIsEditing} items={filtered} handleDelete={deleteItem} />
 		</Card>
 	)
 }

@@ -28,6 +28,19 @@
     border-radius: 6px;
 }
 
+.new-expense__control-category-add,
+.new-expense__control-category-cancel{
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 400;
+    margin-left: 15px;
+    background-color: #40005d;
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
 .new-expense__actions {
     width: 100%;
     text-align: right;

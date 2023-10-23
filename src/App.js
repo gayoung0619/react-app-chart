@@ -1,8 +1,9 @@
 import NewExpense from "./components/NewExpense/NewExpense";
 import Expenses from "./components/Expenses/Expenses";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import MyProvider from "./context/MyProvider";
-
+import MyContext from "./context/MyContext";
+import {logDOM} from "@testing-library/react";
 function App() {
 	const DUMMY_EXPENSES = [
 		{
@@ -35,21 +36,46 @@ function App() {
 		},
 	];
 	const [realData, setRealData] = useState(DUMMY_EXPENSES);
-	const addExpenseHandler = (data) => {
-		setRealData(() => {
-			return [data, ...realData]
-		})
-		console.log([data, ...realData])
-	}
+	const [targetId, setTargetId] = useState(); // list에서 수정버튼 클릭시 반환하는 데이터의 id값
+	const [year, setYear] = useState('2021')
+
+	// 년도 변경 핸들러
+	const handleYearChange = (selectedYear) => {
+		setYear(selectedYear);
+	};
+
+	const addExpenseHandler = (expenseData) => {
+			// 새 항목 추가
+			setRealData((prevExpenses) => [
+				...prevExpenses,
+				{ ...expenseData, id: Math.random().toString() },
+			]);
+	};
+	const editExpenseHandler = (expense) => {
+		// 수정 모드에서는 기존 데이터를 수정 데이터로 대체
+		const updatedExpenses = realData.map((exp) =>
+			exp.id === targetId ? { ...exp, ...expense } : exp
+		);
+		setRealData(updatedExpenses);
+		console.log("수정모드");
+	};
 
 	return (
-		<MyProvider>
+		<MyProvider targetId={targetId} setTargetId={setTargetId} >
 			<NewExpense
+				onEditExpense={editExpenseHandler}
 				onAddExpense={addExpenseHandler}
+				items={realData}
+				setRealData={setRealData}
+				year={year}
+				setYear={setYear}
+				onYearChange={handleYearChange}
 			/>
 			<Expenses
 				items={realData}
 				setRealData={setRealData}
+				year={year}
+				setYear={setYear}
 			/>
 		</MyProvider>
 	);

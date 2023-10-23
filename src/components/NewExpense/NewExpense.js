@@ -10,11 +10,18 @@ const NewExpense = (props) => {
 			id : Math.random()
 		}
 		props.onAddExpense(expenseData)
+		props.onYearChange(expenseData.date.getFullYear().toString());
 	}
 	return (
 		<div className="new-expense">
 			{!visible && <button onClick={onVisible} >Add New Expense</button> }
-			{visible && <ExpenseForm onSaveExpenseData={saveExpenseDataHandler} stopVisible={props.stopVisible} /> }
+			{visible &&
+				<ExpenseForm
+				onEditExpenseData={props.onEditExpense}
+				onSaveExpenseData={saveExpenseDataHandler}
+				stopVisible={props.stopVisible}
+				onYearChange={props.onYearChange}/>
+			}
 		</div>
 	)
 }

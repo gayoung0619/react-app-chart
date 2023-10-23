@@ -1,11 +1,10 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import './ExpenseItem.css'
 import Card from "../UI/Card";
 import ExpenseDate from "./ExpenseDate";
 import MyContext from "../../context/MyContext";
 const ExpenseItem = (props) => {
-	const { visible, setVisible, onVisible, stopVisible } = useContext(MyContext);
-
+	const { editHandler } = useContext(MyContext);
 	return (
 		<li>
 			<Card className="expense-item">
@@ -15,9 +14,9 @@ const ExpenseItem = (props) => {
 						<p>{props.category}</p>
 						<h2>{props.title}</h2>
 					</div>
-					<button type="button" onClick={()=> props.handleDelete(props.id)}>delete</button>
-					<button type="button" onClick={onVisible}>modify</button>
 					<div className="expense-item__price">{`$${props.amount}`}</div>
+					<button className="expense-item__btn-edit" type="button" onClick={()=> {editHandler(props.id)}}>EDIT</button>
+					<button className="expense-item__btn-delete" type="button" onClick={()=> props.handleDelete(props.id)}>DELETE</button>
 				</div>
 			</Card>
 		</li>
