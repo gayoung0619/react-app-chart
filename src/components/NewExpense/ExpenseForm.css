@@ -41,6 +41,10 @@
     cursor: pointer;
 }
 
+.error-message {
+    color: #40005d;
+}
+
 .new-expense__actions {
     width: 100%;
     text-align: right;

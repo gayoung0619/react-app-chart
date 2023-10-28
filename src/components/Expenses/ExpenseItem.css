@@ -3,8 +3,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
-    margin: 1rem 0;
+    padding: 1rem 0.8rem;
+    margin: 1rem 0.5rem;
     background-color: #4b4b4b;
 }
 .expense-item:hover,
@@ -15,24 +15,23 @@
 .expense-item__description {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    align-items: flex-end;
-    flex-flow: column-reverse;
-    justify-content: flex-start;
     flex: 1;
 }
 
 .expense-item h2,
 .expense-item p {
-    font-size: 1rem;
+    font-size: 1.2rem;
     flex: 1;
-    margin: 0 1rem;
+    margin: 0;
     color: white;
 }
+.expense-item h2 {
+    margin: 5px 0;
+}
 .expense-item p {
-    font-size: 0.8rem;
+    font-size: 0.6rem;
     background: #4826b9;
-    display: inline;
+    display: inline-block;
     padding: 2px 7px;
     border-radius: 3px;
 }
@@ -42,13 +41,9 @@
 }
 
 .expense-item__price {
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: white;
-    background-color: #40005d;
-    border: 1px solid white;
-    padding: 0.5rem;
-    border-radius: 12px;
+    color: #a892ee;
 }
 
 .expense-item__btn-edit {
@@ -90,22 +85,4 @@
 }
 .expense-item__btn-delete::after{
     transform: rotate(-45deg);
-}
-
-@media (min-width: 580px) {
-    .expense-item__description {
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        flex: 1;
-    }
-
-    .expense-item__description h2 {
-        font-size: 1.25rem;
-    }
-
-    .expense-item__price {
-        font-size: 1.25rem;
-        padding: 0.5rem 1.5rem;
-    }
 }

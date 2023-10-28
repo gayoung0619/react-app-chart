@@ -12,12 +12,14 @@ const ExpenseForm = (props) => {
 		{value: '보험', label: '보험'},
 		{value: '공과', label: '공과'},
 		{value: '교통', label: '교통'}
-
 	]);
 	const [title, setTitle] = useState('');
 	const [amount, setAmount] = useState('');
 	const [date, setDate] = useState('');
 	const [toggle, setToggle] = useState(true);
+	// 오류 메시지 상태
+	const [errorMessage, setErrorMessage] = useState('');
+
 	const onTrue = () => {
 		setSelectedOption('');
 		setToggle(true);
@@ -32,10 +34,34 @@ const ExpenseForm = (props) => {
 		let newOptionValue = selectedOption;
 		const newOption = { value: newOptionValue, label: newOptionValue }
 		setOptions((prevOptions) => [...prevOptions, newOption])
-
 	}
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		// 유효성 검사
+		if (selectedOption === 'default' || selectedOption === '') {
+			setErrorMessage("Please select a category.");
+			return;
+		}
+
+		if (title.trim() === '') {
+			setErrorMessage("Please enter a title.");
+			return;
+		}
+
+		if (amount.trim() === '') {
+			setErrorMessage("Please enter a valid amount.");
+			return;
+		}
+
+		if (date.trim() === '') {
+			setErrorMessage("Please select a valid date.");
+			return;
+		}
+
+		// 성공 시 오류 메시지 초기화
+		setErrorMessage('');
+
 		const expenseData = {
 			category: selectedOption,
 			title: title,
@@ -56,6 +82,15 @@ const ExpenseForm = (props) => {
 			setDate('');
 		}
 	}
+
+	// JSX에서 오류 메시지 렌더링
+	const renderErrorMessage = () => {
+		if (errorMessage) {
+			return <p className="error-message">{errorMessage}</p>;
+		}
+		return null;
+	}
+
 	const handleSelectChange = (e) => {
 		setSelectedOption(e.target.value)
 	}
@@ -114,6 +149,7 @@ const ExpenseForm = (props) => {
 						<label>Date</label>
 						<input type="date" min="2021-01-01" max="2023-10-23" value={date} onChange={handleDate} />
 					</div>
+					{renderErrorMessage()}
 					<div className="new-expense__actions">
 						<button type="button" onClick={stopVisible}>Cancel</button>
 						<button>

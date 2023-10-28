@@ -20,7 +20,6 @@ const MyProvider = ({children, targetId, setTargetId}) => {
 		setEdit(true);
 		setTargetId(id);
 	}
-
 	return (
 		<MyContext.Provider value={{ visible, setVisible, onVisible, stopVisible, edit, setEdit, editHandler, targetId, setTargetId }}>
 			{children}
